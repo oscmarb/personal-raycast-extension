@@ -1,0 +1,143 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "personal-workflows",
+  "title": "Personal Workflows",
+  "description": "Streamline your personal workflows",
+  "icon": "extension-icon.png",
+  "author": "oscmarb",
+  "license": "MIT",
+  "commands": [
+    {
+      "name": "open-project",
+      "title": "Open Project",
+      "description": "Quick access to your projects - open in editor, terminal, or Finder",
+      "mode": "view"
+    }
+  ],
+  "tools": [
+    {
+      "name": "open-project",
+      "title": "Open Project",
+      "description": "Open a project for a given query"
+    },
+    {
+      "name": "list-projects",
+      "title": "List Projects",
+      "description": "List your projects filtered by section and query"
+    }
+      ],
+  "ai": {
+    "evals": [
+      {
+        "input": "@open-project open padel",
+        "mocks": {
+          "open-project": "Project padel is opened with the default option"
+        },
+        "expected": [
+          {
+            "callsTool": {
+              "name": "open-project",
+              "arguments": {
+                "project": {
+                  "includes": "padel"
+                }
+              }
+            }
+          },
+          {
+            "meetsCriteria": "Opening the project padel with the default option"
+          }
+        ]
+      },
+      {
+        "input": "@open-project open padel terminal",
+        "mocks": {
+          "open-project": "Project padel is opened with the terminal"
+        },
+        "expected": [
+          {
+            "callsTool": {
+              "name": "open-project",
+              "arguments": {
+                "project": {
+                  "includes": "padel"
+                },
+                "resource": {
+                  "includes": "terminal"
+                }
+              }
+            }
+          },
+          {
+            "meetsCriteria": "Opening the project padel with the terminal"
+          }
+        ]
+      },
+      {
+        "input": "@list-projects list padel in own",
+        "mocks": {
+          "list-projects": "Lists the projects that matches with padel query in own section"
+        },
+        "expected": [
+          {
+            "callsTool": {
+              "name": "list-projects",
+              "arguments": {
+                "query": {
+                  "includes": "padel"
+                },
+                "section": {
+                  "includes": "own"
+                }
+              }
+            }
+          },
+          {
+            "meetsCriteria": "Listing the project that matches with padel query in the own section"
+          }
+        ]
+      },
+      {
+        "input": "@list-projects list in own",
+        "mocks": {
+          "list-projects": "Lists the projects in own section"
+        },
+        "expected": [
+          {
+            "callsTool": {
+              "name": "list-projects",
+              "arguments": {
+                "section": {
+                  "includes": "own"
+                }
+              }
+            }
+          },
+          {
+            "meetsCriteria": "Listing the project in the own section"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "@raycast/api": "^1.95.0",
+    "@raycast/utils": "^1.17.0",
+    "fuse.js": "^7.1.0",
+    "run-applescript": "^7.0.0"
+  },
+  "devDependencies": {
+    "@raycast/eslint-config": "^2.0.4",
+    "@types/node": "22.13.10",
+    "@types/react": "19.0.10",
+    "eslint": "^9.22.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "scripts": {
+    "build": "ray build",
+    "dev": "ray develop",
+    "fix-lint": "ray lint --fix",
+    "lint": "ray lint"
+  }
+}
